@@ -5,16 +5,16 @@ import { Expose, Type } from "class-transformer";
 
 export class ObjectT extends SpeakeasyBase {
   @SpeakeasyMetadata()
-  @Expose({ name: "customer_id_column" })
-  customerIdColumn?: string;
-
-  @SpeakeasyMetadata()
   @Expose({ name: "destination_id" })
   destinationId?: number;
 
   @SpeakeasyMetadata()
   @Expose({ name: "display_name" })
   displayName?: string;
+
+  @SpeakeasyMetadata()
+  @Expose({ name: "end_customer_id_field" })
+  endCustomerIdField?: string;
 
   @SpeakeasyMetadata()
   @Expose({ name: "id" })

@@ -33,7 +33,7 @@ src/sdk/models/operations/getsources.ts
 src/sdk/models/operations/createsync.ts
 src/sdk/models/operations/getsyncs.ts
 src/sdk/models/operations/index.ts
-src/sdk/models/shared/columnschema.ts
+src/sdk/models/shared/field.ts
 src/sdk/models/shared/fieldtypeenum.ts
 src/sdk/models/shared/destination.ts
 src/sdk/models/shared/connection.ts

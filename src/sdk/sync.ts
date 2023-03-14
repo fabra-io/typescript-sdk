@@ -61,14 +61,18 @@ export class Sync {
         const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) throw new Error(`status code not found in response: ${httpRes}`);
-        const res: operations.CreateSyncResponse = {statusCode: httpRes.status, contentType: contentType, rawResponse: httpRes};
+        const res: operations.CreateSyncResponse =
+            new operations.CreateSyncResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes
+            });
         switch (true) {
           case httpRes?.status == 200:
             if (utils.matchContentType(contentType, `application/json`)) {
-              res.createSync200ApplicationJSONObject = plainToInstance(
+              res.createSync200ApplicationJSONObject = utils.deserializeJSONResponse(
+                httpRes?.data,
                 operations.CreateSync200ApplicationJSON,
-                httpRes?.data as operations.CreateSync200ApplicationJSON,
-                { excludeExtraneousValues: true }
               );
             }
             break;
@@ -105,14 +109,18 @@ export class Sync {
         const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) throw new Error(`status code not found in response: ${httpRes}`);
-        const res: operations.GetSyncsResponse = {statusCode: httpRes.status, contentType: contentType, rawResponse: httpRes};
+        const res: operations.GetSyncsResponse =
+            new operations.GetSyncsResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes
+            });
         switch (true) {
           case httpRes?.status == 200:
             if (utils.matchContentType(contentType, `application/json`)) {
-              res.getSyncs200ApplicationJSONObject = plainToInstance(
+              res.getSyncs200ApplicationJSONObject = utils.deserializeJSONResponse(
+                httpRes?.data,
                 operations.GetSyncs200ApplicationJSON,
-                httpRes?.data as operations.GetSyncs200ApplicationJSON,
-                { excludeExtraneousValues: true }
               );
             }
             break;

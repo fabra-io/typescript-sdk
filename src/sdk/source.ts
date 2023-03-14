@@ -61,14 +61,18 @@ export class Source {
         const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) throw new Error(`status code not found in response: ${httpRes}`);
-        const res: operations.CreateSourceResponse = {statusCode: httpRes.status, contentType: contentType, rawResponse: httpRes};
+        const res: operations.CreateSourceResponse =
+            new operations.CreateSourceResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes
+            });
         switch (true) {
           case httpRes?.status == 200:
             if (utils.matchContentType(contentType, `application/json`)) {
-              res.createSource200ApplicationJSONObject = plainToInstance(
+              res.createSource200ApplicationJSONObject = utils.deserializeJSONResponse(
+                httpRes?.data,
                 operations.CreateSource200ApplicationJSON,
-                httpRes?.data as operations.CreateSource200ApplicationJSON,
-                { excludeExtraneousValues: true }
               );
             }
             break;
@@ -105,14 +109,18 @@ export class Source {
         const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) throw new Error(`status code not found in response: ${httpRes}`);
-        const res: operations.GetSourcesResponse = {statusCode: httpRes.status, contentType: contentType, rawResponse: httpRes};
+        const res: operations.GetSourcesResponse =
+            new operations.GetSourcesResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes
+            });
         switch (true) {
           case httpRes?.status == 200:
             if (utils.matchContentType(contentType, `application/json`)) {
-              res.getSources200ApplicationJSONObject = plainToInstance(
+              res.getSources200ApplicationJSONObject = utils.deserializeJSONResponse(
+                httpRes?.data,
                 operations.GetSources200ApplicationJSON,
-                httpRes?.data as operations.GetSources200ApplicationJSON,
-                { excludeExtraneousValues: true }
               );
             }
             break;

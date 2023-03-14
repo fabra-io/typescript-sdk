@@ -27,7 +27,7 @@ yarn add @fabra/sdk
 ```typescript
 import {
   GetNamespacesRequest,
-  GetNamespacesResponse 
+  GetNamespacesResponse
 } from "@fabra/sdk/dist/sdk/models/operations";
 
 import { AxiosError } from "axios";

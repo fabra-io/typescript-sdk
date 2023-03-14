@@ -21,10 +21,10 @@ export class GetSchemaRequest extends SpeakeasyBase {
 }
 
 export class GetSchema200ApplicationJSON extends SpeakeasyBase {
-  @SpeakeasyMetadata({ elemType: shared.ColumnSchema })
+  @SpeakeasyMetadata({ elemType: shared.Field })
   @Expose({ name: "schema" })
-  @Type(() => shared.ColumnSchema)
-  schema?: shared.ColumnSchema[];
+  @Type(() => shared.Field)
+  schema?: shared.Field[];
 }
 
 export class GetSchemaResponse extends SpeakeasyBase {

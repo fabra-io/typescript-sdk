@@ -61,14 +61,18 @@ export class ObjectT {
         const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) throw new Error(`status code not found in response: ${httpRes}`);
-        const res: operations.CreateObjectResponse = {statusCode: httpRes.status, contentType: contentType, rawResponse: httpRes};
+        const res: operations.CreateObjectResponse =
+            new operations.CreateObjectResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes
+            });
         switch (true) {
           case httpRes?.status == 200:
             if (utils.matchContentType(contentType, `application/json`)) {
-              res.createObject200ApplicationJSONObject = plainToInstance(
+              res.createObject200ApplicationJSONObject = utils.deserializeJSONResponse(
+                httpRes?.data,
                 operations.CreateObject200ApplicationJSON,
-                httpRes?.data as operations.CreateObject200ApplicationJSON,
-                { excludeExtraneousValues: true }
               );
             }
             break;
@@ -105,14 +109,18 @@ export class ObjectT {
         const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) throw new Error(`status code not found in response: ${httpRes}`);
-        const res: operations.GetObjectsResponse = {statusCode: httpRes.status, contentType: contentType, rawResponse: httpRes};
+        const res: operations.GetObjectsResponse =
+            new operations.GetObjectsResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes
+            });
         switch (true) {
           case httpRes?.status == 200:
             if (utils.matchContentType(contentType, `application/json`)) {
-              res.getObjects200ApplicationJSONObject = plainToInstance(
+              res.getObjects200ApplicationJSONObject = utils.deserializeJSONResponse(
+                httpRes?.data,
                 operations.GetObjects200ApplicationJSON,
-                httpRes?.data as operations.GetObjects200ApplicationJSON,
-                { excludeExtraneousValues: true }
               );
             }
             break;

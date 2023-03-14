@@ -3,7 +3,7 @@ import { FieldTypeEnum } from "./fieldtypeenum";
 import { Expose } from "class-transformer";
 
 
-export class ColumnSchema extends SpeakeasyBase {
+export class Field extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "name" })
   name?: string;

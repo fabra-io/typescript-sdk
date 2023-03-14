@@ -62,14 +62,18 @@ export class LinkToken {
         const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) throw new Error(`status code not found in response: ${httpRes}`);
-        const res: operations.CreateLinkTokenResponse = {statusCode: httpRes.status, contentType: contentType, rawResponse: httpRes};
+        const res: operations.CreateLinkTokenResponse =
+            new operations.CreateLinkTokenResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes
+            });
         switch (true) {
           case httpRes?.status == 200:
             if (utils.matchContentType(contentType, `application/json`)) {
-              res.createLinkTokenResponse = plainToInstance(
+              res.createLinkTokenResponse = utils.deserializeJSONResponse(
+                httpRes?.data,
                 shared.CreateLinkTokenResponse,
-                httpRes?.data as shared.CreateLinkTokenResponse,
-                { excludeExtraneousValues: true }
               );
             }
             break;

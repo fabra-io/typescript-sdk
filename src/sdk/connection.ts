@@ -48,14 +48,18 @@ export class Connection {
         const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) throw new Error(`status code not found in response: ${httpRes}`);
-        const res: operations.GetNamespacesResponse = {statusCode: httpRes.status, contentType: contentType, rawResponse: httpRes};
+        const res: operations.GetNamespacesResponse =
+            new operations.GetNamespacesResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes
+            });
         switch (true) {
           case httpRes?.status == 200:
             if (utils.matchContentType(contentType, `application/json`)) {
-              res.getNamespaces200ApplicationJSONObject = plainToInstance(
+              res.getNamespaces200ApplicationJSONObject = utils.deserializeJSONResponse(
+                httpRes?.data,
                 operations.GetNamespaces200ApplicationJSON,
-                httpRes?.data as operations.GetNamespaces200ApplicationJSON,
-                { excludeExtraneousValues: true }
               );
             }
             break;
@@ -98,14 +102,18 @@ export class Connection {
         const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) throw new Error(`status code not found in response: ${httpRes}`);
-        const res: operations.GetSchemaResponse = {statusCode: httpRes.status, contentType: contentType, rawResponse: httpRes};
+        const res: operations.GetSchemaResponse =
+            new operations.GetSchemaResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes
+            });
         switch (true) {
           case httpRes?.status == 200:
             if (utils.matchContentType(contentType, `application/json`)) {
-              res.getSchema200ApplicationJSONObject = plainToInstance(
+              res.getSchema200ApplicationJSONObject = utils.deserializeJSONResponse(
+                httpRes?.data,
                 operations.GetSchema200ApplicationJSON,
-                httpRes?.data as operations.GetSchema200ApplicationJSON,
-                { excludeExtraneousValues: true }
               );
             }
             break;
@@ -148,14 +156,18 @@ export class Connection {
         const contentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) throw new Error(`status code not found in response: ${httpRes}`);
-        const res: operations.GetTablesResponse = {statusCode: httpRes.status, contentType: contentType, rawResponse: httpRes};
+        const res: operations.GetTablesResponse =
+            new operations.GetTablesResponse({
+                statusCode: httpRes.status,
+                contentType: contentType,
+                rawResponse: httpRes
+            });
         switch (true) {
           case httpRes?.status == 200:
             if (utils.matchContentType(contentType, `application/json`)) {
-              res.getTables200ApplicationJSONObject = plainToInstance(
+              res.getTables200ApplicationJSONObject = utils.deserializeJSONResponse(
+                httpRes?.data,
                 operations.GetTables200ApplicationJSON,
-                httpRes?.data as operations.GetTables200ApplicationJSON,
-                { excludeExtraneousValues: true }
               );
             }
             break;
